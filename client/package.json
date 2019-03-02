@@ -1,0 +1,78 @@
+{
+  "name": "ends-unite",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Richard Van Camp",
+  "license": "MIT",
+  "main": "src/index.tsx",
+  "scripts": {
+    "dev": "concurrently -r \"npm:type-check:watch\" \"npm:start\"",
+    "start": "parcel ./src/index.html",
+    "build": "npm run type-check && parcel build ./src/index.html --public-url '/'",
+    "prettify": "prettier --write './src/**/*.{ts,tsx}'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettify && npm run test"
+    }
+  },
+  "engines": {
+    "node": ">= 8.11.0",
+    "npm": ">= 6.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/config/test-preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/*.(test|spec).(ts|tsx|js)"
+    ]
+  },
+  "keywords": [
+    "Typescript",
+    "React",
+    "Parcel"
+  ],
+  "dependencies": {
+    "antd": "^3.13.6",
+    "axios": "^0.18.0",
+    "helpful-decorators": "^1.7.2",
+    "ramda": "^0.26.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "unionize": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^23.3.10",
+    "@types/ramda": "^0.25.51",
+    "@types/react": "^16.8.5",
+    "@types/react-dom": "^16.8.2",
+    "concurrently": "^4.1.0",
+    "husky": "^1.2.1",
+    "jest": "^23.6.0",
+    "parcel-bundler": "^1.11.0",
+    "prettier": "^1.15.3",
+    "react-test-renderer": "^16.7.0",
+    "react-testing-library": "^5.4.2",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3333"
+  }
+}

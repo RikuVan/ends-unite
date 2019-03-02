@@ -1,0 +1,23 @@
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+hr {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 50px;
+}
+
+.container.full {
+  text-align: center;
+  height: 100vh;
+}
