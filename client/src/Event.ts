@@ -1,5 +1,6 @@
 import { unionize, ofType, UnionOf } from "unionize"
 import merge from "ramda/es/merge"
+import identity from "ramda/es/identity"
 
 export interface EventDetails {
   id: number
@@ -23,36 +24,36 @@ const Event = unionize({
 
 type EventType = UnionOf<typeof Event>
 
-const map = (f: (details: EventDetails) => EventDetails) => (val: Event) =>
-  Event.match(val, {
-    Error: _ => val,
-    default: v => merge(v, f(v))
+const fold = <B extends {}>(onError: (e: any) => B, onOk: (details: EventDetails) => B) => (
+  event: EventType
+) =>
+  Event.match(event, {
+    Error: onError,
+    default: onOk
   })
 
-const flatMap = (f: (a: EventDetails) => EventType) => (val: EventType) =>
-  Event.match(val, {
-    Error: _ => val,
-    default: (data: EventDetails) => f(data)
-  })
+const map = (f: (details: EventDetails) => EventDetails) => (event: Event) =>
+  fold<EventType>(identity, v => merge(v, f(v)))(event)
 
-const tap = (f: Function) => (val: EventType) =>
-  Event.match(val, {
-    default: (ctx: any) => {
-      f(ctx)
-      return val
-    }
-  })
+const flatMap = <A extends {}>(f: (a: EventDetails) => A) => (event: EventType) =>
+  fold<A>(identity, f)(event)
 
-const from = (val: EventType) =>
-  Event.match(val, {
-    Planning: () => val,
-    Open: () => val,
-    Full: () => val,
-    Closed: () => val,
-    Cancelled: () => val,
+const tap = (f: Function) => (event: EventType) =>
+  fold<EventType>(identity, details => {
+    f(details)
+    return event
+  })(event)
+
+const from = (event: EventType) =>
+  Event.match(event, {
+    Planning: () => event,
+    Open: () => event,
+    Full: () => event,
+    Closed: () => event,
+    Cancelled: () => event,
     default: () => Event.Error()
   })
 
-const WDSEvent = Object.assign(Event, { map, flatMap, tap, from })
+const WDSEvent = Object.assign(Event, { fold, map, flatMap, tap, from })
 
 export { WDSEvent, EventType }
