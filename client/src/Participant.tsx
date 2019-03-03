@@ -1,7 +1,6 @@
 import { unionize, ofType, UnionOf } from "unionize"
 import merge from "ramda/es/merge"
 import identity from "ramda/es/identity"
-import * as R from "ramda"
 
 export interface ParticipantDetails {
   name: string
@@ -13,7 +12,8 @@ const Participant = unionize({
   None: {},
   Pending: ofType<ParticipantDetails>(),
   Registered: ofType<ParticipantDetails>(),
-  WaitListed: ofType<ParticipantDetails>(),
+  Waiting: ofType<ParticipantDetails>(),
+  Cancelled: ofType<ParticipantDetails>(),
   Error: ofType<any>()
 })
 
