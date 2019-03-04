@@ -1,0 +1,4 @@
+[build]
+base = "slides/"
+publish = "slides/dist/"
+command = "yarn install && yarn build"
