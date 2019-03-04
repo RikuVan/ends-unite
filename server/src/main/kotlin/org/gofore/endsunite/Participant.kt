@@ -58,7 +58,6 @@ inline fun <B> Participant.fold(onError: (Participant.Error) -> B, onOk: (Partic
     is Participant.Error -> onError(this)
 }
 
-
 inline fun Participant.flatMap(f: (ParticipantDetails) -> Event) = this.fold({ it }, { event -> f(event) })
 
 inline fun Participant.map(f: (ParticipantDetails) -> ParticipantDetails) =

@@ -1,0 +1,306 @@
+export { default as theme } from "./theme"
+import { Appear, Head } from "mdx-deck"
+import { CodeSurfer } from "mdx-deck-code-surfer"
+import { UnorderedList, OrderedList } from "./components/List"
+import { Hi } from "./components/Highlight"
+import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
+
+<Head>
+  <title>Ends unite</title>
+</Head>
+
+# Ends Unite!
+
+<div>Richard Van Camp 👨‍💻</div>
+
+---
+
+## Demo & Slides
+
+[https://github.com/RikuVan/ends-unite](https://github.com/RikuVan/ends-unite)
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-13.kt")}
+  steps={[
+    { notes: "What languages?" },
+    { range: [1, 10], notes: "Kotlin" },
+    { range: [11, 20], notes: "Kotlin" }
+  ]}
+/>
+
+---
+
+### Friction in contributing at every end
+
+<div>SOCIAL FACTORS</div>
+
+<UnorderedList>
+  <Appear>
+    <li>team size & skill imbalances</li>
+    <li>lack of time or willingness to learn and make mistakes</li>
+    <li>team processes & dynamics</li>
+    <li>territorialism</li>
+  </Appear>
+</UnorderedList>
+
+---
+
+### Friction in contributing at every end
+
+<div>TECHNICAL FACTORS</div>
+
+<UnorderedList>
+  <Appear>
+    <li>languages & platforms</li>
+    <li>frameworks & build tools</li>
+    <li>
+      <Hi>INTERNAL APIs 🤔</Hi>
+    </li>
+  </Appear>
+</UnorderedList>
+
+---
+
+### Wouldn't it be handy if we used the abstractions at every 'end' of the stack?
+
+---
+
+### INTERNAL APIS
+
+<OrderedList>
+  <Appear>
+    <li>
+      DATATYPES: the reusable, canonical abstractions we use to model and constrain data, e.g. Java{" "}
+      <Hi light>Optional</Hi> type
+    </li>
+    <li>
+      BEHAVIORS (aka typeclasses): the ways we transform data, e.g. <Hi light>Optional.of</Hi>,{" "}
+      <Hi light>Optional.get</Hi>,<Hi light>Optional.orElseThrow</Hi>
+    </li>
+  </Appear>
+</OrderedList>
+
+---
+
+### INTERNAL APIS
+
+Goal: agree on and implement the same abstractions, with the same behaviours, across the stack.
+
+Case: `Events` and `Participants` for a meetup registration service.
+
+Frontend: `Typescript`
+
+Backend: `Kotlin`
+
+---
+
+### EVENT
+
+| Variant     | Data                                |
+| ----------- | ----------------------------------- |
+| `Pending`   | EventDetails ({date, place...})     |
+| `Open`      | EventDetails                        |
+| `Full`      | EventDetails                        |
+| `Closed`    | EventDetails                        |
+| `Cancelled` | EventDetails                        |
+| `Error`     | `Server`({code, message, status})   |
+|             | `NotFound`({code, message, status}) |
+
+Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap` & iterable helpers
+
+---
+
+### PARTICIPANT
+
+| Variant      | Data                                            |
+| ------------ | ----------------------------------------------- |
+| `Pending`    | ParticipantDetails ({name, email, affiliation}) |
+| `Registered` | ParticipantDetails                              |
+| `Waiting`    | ParticipantDetails                              |
+| `Cancelled`  | ParticipantDetails                              |
+| `Error`      | `Server`({code, message, status})               |
+|              | `NotFound`({code, message, status})             |
+
+Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap`
+
+---
+
+### implementations
+
+- Typescript: `unionize` library
+
+- Kotlin: `sealed class` + `data class` + `object`
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-1.ts")}
+  showNumbers
+  lang="typescript"
+  steps={[
+    { notes: "Define a union of Participant" },
+    {
+      lines: [4, 5, 6, 7, 8, 11],
+      notes: "If a variant takes parameters, use `ofType` to define it."
+    },
+    { lines: [11, 12, 13, 14], notes: "Participant should represent every variant." },
+    {
+      lines: [17],
+      notes: "With 'UnionOf' we have a single type for any variant of Participant in our code"
+    }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-2.tsx")}
+  showNumbers
+  lang="typescript"
+  steps={[
+    { lines: [7], notes: "Unionize gives us some helpers to match out variants" },
+    {
+      range: [10, 15]
+    }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-3.ts")}
+  showNumbers
+  steps={[{ notes: "Useful all over the place" }]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-4.ts")}
+  showNumbers
+  steps={[{ notes: "..also for actions" }]}
+/>
+
+---
+
+### Adding more behaviors to our datatypes
+
+`Unionize` gives you only `is`, `match`, `transform`, `as` out of the box.
+
+You might be tempted to do `Event.prototype.map`...ain't gonna work 😕.
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-5.ts")}
+  showNumbers
+  steps={[
+    { notes: "Give Participant more powers" },
+    {
+      range: [1, 8]
+    },
+    { range: [10, 21] },
+    { lines: [23], notes: "Used with initial form values" },
+    { lines: [25], notes: "Merge into new object and enjoy" }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-7.ts")}
+  showNumbers
+  steps={[
+    {},
+    {
+      range: [10, 17],
+      notes: "Use with a pipe or compose"
+    }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-8.kt")}
+  theme={shadesOfPurple}
+  showNumbers
+  steps={[
+    {
+      lines: [1]
+    },
+    {
+      lines: [3],
+      notes: "Data class comes with equals(), toString(), copy()"
+    },
+    {
+      lines: [5, 6, 7, 8],
+      notes: "Sealed classes can have multiple instances which contain state"
+    },
+    {
+      range: [10, 13],
+      notes: "a when block requires each case is handled (can use else as default)"
+    }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-9.kt")}
+  showNumbers
+  theme={shadesOfPurple}
+  steps={[
+    { range: [3, 9], notes: "" },
+    { range: [12, 20], notes: "Wrap your type instances in a sealed class." },
+    {
+      range: [23, 33],
+      notes: "Our 'from' gives us a way to convert details from the database or a http request"
+    }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-10.kt")}
+  showNumbers
+  theme={shadesOfPurple}
+  steps={[{ range: [1, 8] }, { lines: [9, 11, 12] }, { range: [14, 21] }, { range: [23, 36] }]}
+/>
+
+---
+
+<CodeSurfer code={require("raw-loader!./snippets/example-11.kt")} theme={shadesOfPurple} />
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-12.kt")}
+  showNumbers
+  theme={shadesOfPurple}
+  steps={[{}, { range: [5, 15] }]}
+/>
+
+---
+
+<CodeSurfer
+  code={require("raw-loader!./snippets/example-14.kt")}
+  theme={shadesOfPurple}
+  steps={[{ notes: "Questions so far?" }]}
+/>
+
+---
+
+### Some questions you might ask (with short answers provided)
+
+1. Could we make `Event` more generic. Yes: <code>`sealed class<out A>`</code>
+2. Wouldn't it be better to define your behaviors once and reuse them. Yes. See `Arrow` for Kotlin and `ts-fp` for typescript.
+3. Are we coupling the `ends` together? Nope.
+4. What if I am happy in my own `end`. Sure, live and prosper.
+
+---
+
+### `richard.vancamp@(gmail|gofore).com`

@@ -1,0 +1,1 @@
+    fun all(): List<Event> = events.toList().map { Event.from(it.second) }
