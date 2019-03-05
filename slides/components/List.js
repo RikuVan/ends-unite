@@ -13,4 +13,5 @@ export const OrderedList = styled("ol")`
 
 export const UnorderedList = styled("ul")`
   ${listStyles}
+  list-style-type:none;
 `
