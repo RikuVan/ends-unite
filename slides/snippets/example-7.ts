@@ -7,6 +7,7 @@ const data = {
   email: "leo.melin@gofore.com"
 }
 
+// pipe just takes the returned value from each function and passes it to the next
 const registered = pipe(
   from,
   map(assoc("name", "Mr. Leo Melin")),

@@ -11,7 +11,7 @@ const Main = ({ participant }: { participant: ParticipantDetails }) => (
       Pending: () => <div>Loading...</div>,
       Registered: ({ data }) => <div>{data.name} you are registered.</div>,
       Waiting: ({ data }) => <div>{data.name}, you are in line.</div>,
-      Failure: () => <div className="error">Oops</div>
+      Invalid: () => <div className="error">Oops</div>
     })}
   </main>
 )

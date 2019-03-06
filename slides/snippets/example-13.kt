@@ -1,5 +1,5 @@
 // backend
-val presentationFeelings = when (is) {
+val vibesAtBeginning = when (this) {
   is Audience.Attentive -> 🤗,
   is Audience.Questioning -> 😅,
   is Audience.StaringAtOpenZipper -> 🤭,
@@ -8,10 +8,10 @@ val presentationFeelings = when (is) {
 }
 
 // frontend
-const presentationFeelings = Presentation.match(pres, {
+const vibesAtBeginning = Presentation.match(pres, {
   Attentive: _ -> 🤗,
   Questioning: _ -> 😅,
   StaringAtOpenZipper: _ -> 🤭,
-  Sleeping -> 💩,
-  DrinkingHeavily -> 🙄
+  Sleeping: _ -> 💩,
+  DrinkingHeavily: _ -> 🙄
 })

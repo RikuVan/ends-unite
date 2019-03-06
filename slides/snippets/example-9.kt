@@ -14,7 +14,7 @@ sealed class Participant {
     data class Registered(val details: ParticipantDetails) : Participant()
     data class Waiting(val details: ParticipantDetails) : Participant()
     data class Cancelled(val details: ParticipantDetails) : Participant()
-    object Error : Participant() {
+    object Invalid : Participant() {
         val message = "Sorry, something went wrong"
         val code = 500
         val tag = "error"
@@ -28,9 +28,9 @@ sealed class Participant {
                     ParticipantStatus.REGISTERED -> Registered(data)
                     ParticipantStatus.WAITING -> Waiting(data)
                     ParticipantStatus.CANCELLED -> Cancelled(data)
-                    else -> Error
+                    else -> Invalid
                 }
-            } ?: Error
+            } ?: Invalid
         }
     }
 }

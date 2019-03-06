@@ -11,7 +11,7 @@ export const Participant = unionize({
   Pending: ofType<ParticipantDetails>(),
   Registered: ofType<ParticipantDetails>(),
   Waiting: ofType<ParticipantDetails>(),
-  Failure: ofType<any>()
+  Invalid: ofType<any>()
 })
 
 export type ParticipantType = UnionOf<typeof Participant>

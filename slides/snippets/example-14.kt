@@ -1,5 +1,5 @@
 
-val feelingsAtThisPoint = when (is) {
+val vibesAtEnd = when (is) {
   Presentation.FriendlyQuestion -> 🤗,
   Presentation.HostileQuestion -> 😨,
   Presentation.Silence -> 💩,
@@ -7,7 +7,7 @@ val feelingsAtThisPoint = when (is) {
   else -> 🍺
 }
 
-const feelingsAtThisPoint = Presentation.match(pres, {
+const vibesAtEnd = Presentation.match(pres, {
   FriendlyQuestion: _ -> 🤗,
   HostileQuestion: _ -> 😨,
   Silence: _ -> 💩,

@@ -1,7 +1,7 @@
 function fold<B>(onError: (e: any) => B, onOk: (data: ParticipantDetails) => B) {
-  return function(event: ParticipantType) {
-    return Participant.match(event, {
-      Error: onError,
+  return function(value: ParticipantType) {
+    return Participant.match(value, {
+      Invalid: onError,
       default: onOk
     })
   }
