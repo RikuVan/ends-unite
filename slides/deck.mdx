@@ -3,6 +3,7 @@ import { Appear, Head } from "mdx-deck"
 import { Split } from "mdx-deck/layouts"
 import { CodeSurfer } from "mdx-deck-code-surfer"
 import { UnorderedList, OrderedList } from "./components/List"
+import { BottomLine } from "./components/BottomLine"
 import { Hi } from "./components/Highlight"
 import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
 
@@ -69,8 +70,8 @@ import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
 
 ### INTERNAL APIS
 
-<OrderedList>
-  <Appear>
+<Appear>
+  <OrderedList>
     <li>
       <Hi>datatypes</Hi>: the reusable, canonical abstractions we use to model and constrain data,
       e.g. <Hi light>Result</Hi> type, which has constructors success (Ok) and failure (Err).
@@ -79,8 +80,14 @@ import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
       <Hi>behaviors</Hi>: the methods we use to transform, wrap and unwrap data, e.g.
       <Hi light>Result.map</Hi>,<Hi light>Result.unwrap</Hi>
     </li>
-  </Appear>
-</OrderedList>
+  </OrderedList>
+  <BottomLine>
+    <p>
+      Bottom line: well-designed datatypes and encoded behaviors force you to always handle your
+      data correctly in every scenario
+    </p>
+  </BottomLine>
+</Appear>
 
 ---
 
