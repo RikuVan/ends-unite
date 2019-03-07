@@ -74,7 +74,8 @@ import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
   <OrderedList>
     <li>
       <Hi>datatypes</Hi>: the reusable, canonical abstractions we use to model and constrain data,
-      e.g. <Hi light>Result</Hi> type, which has constructors success (Ok) and failure (Err).
+      e.g. <Hi light>Result</Hi> type, which has constructors success (<Hi light>Ok</Hi>) and
+      failure (<Hi light>Err</Hi>).
     </li>
     <li>
       <Hi>behaviors</Hi>: the methods we use to transform, wrap and unwrap data, e.g.
@@ -314,7 +315,7 @@ You might be tempted to do `Event.prototype.map`...ain't gonna work 😕.
 
 ---
 
-### Some questions you might ask (with short answers provided)
+### Some questions you might ask
 
 1. Wouldn't it be better to make `Event` more generic, handling any type of event? Hint: <code>`sealed class<out A>`</code>
 2. What if my `ends` are happily divorced?
