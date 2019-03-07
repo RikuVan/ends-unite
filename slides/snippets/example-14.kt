@@ -1,5 +1,5 @@
 
-val vibesAtEnd = when (is) {
+val vibesAtEnd = when (pres) {
   Presentation.FriendlyQuestion -> 🤗,
   Presentation.HostileQuestion -> 😨,
   Presentation.Silence -> 💩,

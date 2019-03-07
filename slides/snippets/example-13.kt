@@ -1,5 +1,5 @@
 // backend
-val vibesAtBeginning = when (this) {
+val vibesAtBeginning = when (pres) {
   is Audience.Attentive -> 🤗,
   is Audience.Questioning -> 😅,
   is Audience.StaringAtOpenZipper -> 🤭,

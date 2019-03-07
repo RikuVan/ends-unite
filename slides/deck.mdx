@@ -41,12 +41,10 @@ import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
 
 <UnorderedList>
   <Appear>
-    <li>😩 Your bossy backend girlfriend Gradle and my annoying pal Webpack</li>
-    <li>😩 Your all-over-the-place XML and my overly-sensitive JSON</li>
-    <li>😩 Your C genetics and... well mine too</li>
-    <li>
-      😩 Worst of all, each our own secret inpenetrable abstractions, with their own bad smells
-    </li>
+    <li>😩 Her bossy backend girlfriend Gradle and his annoying pal Webpack</li>
+    <li>😩 Her anything-goes XML and his oh-so-sensitive JSON</li>
+    <li>😩 Her unbearable C-family...and well his too</li>
+    <li>😩 Worst of all, each her or own secret inpenetrable abstractions</li>
   </Appear>
 </UnorderedList>
 
@@ -58,7 +56,7 @@ import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
   <Appear>
     <li>💖 We share values after all</li>
     <li>💖 And we both believe in not being too tied down (to frameworks especially)</li>
-    <li>💖 And we like to switch roles and pretend we are the other end</li>
+    <li>💖 And we like to switch roles and learn from the other</li>
     <li>💖 Most of all: we love the same abstractions!</li>
   </Appear>
 </UnorderedList>
@@ -74,12 +72,12 @@ import shadesOfPurple from "prism-react-renderer/themes/shadesOfPurple"
 <OrderedList>
   <Appear>
     <li>
-      DATATYPES: the reusable, canonical abstractions we use to model and constrain data, e.g. Java{" "}
-      <Hi light>Optional</Hi> type
+      <Hi>datatypes</Hi>: the reusable, canonical abstractions we use to model and constrain data,
+      e.g. <Hi light>Result</Hi> type, which has constructors success (Ok) and failure (Err).
     </li>
     <li>
-      BEHAVIORS (aka typeclasses): the ways we transform data, e.g. <Hi light>Optional.of</Hi>,{" "}
-      <Hi light>Optional.get</Hi>,<Hi light>Optional.orElseThrow</Hi>
+      <Hi>behaviors</Hi>: the methods we use to transform, wrap and unwrap data, e.g.
+      <Hi light>Result.map</Hi>,<Hi light>Result.unwrap</Hi>
     </li>
   </Appear>
 </OrderedList>
@@ -100,14 +98,14 @@ Backend: `Kotlin`
 
 ### EVENT
 
-| Variant     | Data                                |
+| Variant     | Value                               |
 | ----------- | ----------------------------------- |
 | `Pending`   | EventDetails ({date, place...})     |
 | `Open`      | EventDetails                        |
 | `Full`      | EventDetails                        |
 | `Closed`    | EventDetails                        |
 | `Cancelled` | EventDetails                        |
-| `Error`     | `Server`({code, message, status})   |
+| `Failed`    | `Server`({code, message, status})   |
 |             | `NotFound`({code, message, status}) |
 
 Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap` & iterable helpers
@@ -116,13 +114,13 @@ Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap` & iterable he
 
 ### PARTICIPANT
 
-| Variant      | Data                                            |
+| Variant      | Value                                           |
 | ------------ | ----------------------------------------------- |
 | `Pending`    | ParticipantDetails ({name, email, affiliation}) |
 | `Registered` | ParticipantDetails                              |
 | `Waiting`    | ParticipantDetails                              |
 | `Cancelled`  | ParticipantDetails                              |
-| `Error`      | `Server`({code, message, status})               |
+| `Invalid`    | `Server`({code, message, status})               |
 |              | `NotFound`({code, message, status})             |
 
 Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap`
@@ -142,15 +140,15 @@ Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap`
   showNumbers
   lang="typescript"
   steps={[
-    { notes: "Define a union of Participant" },
+    { notes: "The union boilerplate" },
     {
       lines: [4, 5, 6, 7, 8, 11],
-      notes: "If a variant takes parameters, use `ofType` to define it."
+      notes: "If a variant takes one or more parameters, use `ofType` otherwise {}"
     },
-    { lines: [11, 12, 13, 14], notes: "Participant should represent every variant." },
+    { lines: [11, 12, 13, 14], notes: "Each variant is a key which will match be the tag" },
     {
       lines: [17],
-      notes: "With 'UnionOf' we have a single type for any variant of Participant in our code"
+      notes: "'UnionOf' helps us create a type for our union"
     }
   ]}
 />
@@ -172,9 +170,23 @@ Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap`
 ---
 
 <CodeSurfer
+  code={require("raw-loader!./snippets/example-2.5.tsx")}
+  showNumbers
+  lang="typescript"
+  steps={[
+    { range: [1, 10], notes: "Alternatively use a reusable hook" },
+    {
+      range: [11, 21]
+    }
+  ]}
+/>
+
+---
+
+<CodeSurfer
   code={require("raw-loader!./snippets/example-3.ts")}
   showNumbers
-  steps={[{ notes: "Useful all over the place" }]}
+  steps={[{ notes: "Simplify a reducer" }]}
 />
 
 ---
@@ -182,7 +194,7 @@ Behaviours: `is`, `match`, `fold`, `map`, `flatMap`, `from`, `tap`
 <CodeSurfer
   code={require("raw-loader!./snippets/example-4.ts")}
   showNumbers
-  steps={[{ notes: "..also for actions" }]}
+  steps={[{ notes: "Also use to define action" }]}
 />
 
 ---
@@ -208,7 +220,6 @@ You might be tempted to do `Event.prototype.map`...ain't gonna work 😕.
     { lines: [25], notes: "Merge into new object and enjoy" }
   ]}
 />
-
 ---
 
 <CodeSurfer
@@ -298,10 +309,8 @@ You might be tempted to do `Event.prototype.map`...ain't gonna work 😕.
 
 ### Some questions you might ask (with short answers provided)
 
-1. Could we make `Event` more generic. Yes: <code>`sealed class<out A>`</code>
-2. Wouldn't it be better to define your behaviors once and reuse them. Yes. See `Arrow` for Kotlin and `ts-fp` for typescript.
-3. Are we coupling the `ends` together? Nope.
-4. What if I am happy in my own `end`. Sure, live and prosper.
+1. Wouldn't it be better to make `Event` more generic, handling any type of event? Hint: <code>`sealed class<out A>`</code>
+2. What if my `ends` are happily divorced?
 
 ---
 
