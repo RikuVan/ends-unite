@@ -6,4 +6,4 @@ The idea of this demo is to show how we can create datatypes with similar behavi
 
 The frontend uses the [unionize](https://github.com/pelotom/unionize) library for this purpose, while in Kotlin we can use in-built sealed classes to create a solid datatype. In this demo, the front- and backends shares a `tag` property used internally to match the type of the data sent back and forth.
 
-### [Presentation slides](https://rickvancamp.dev)
+### [Presentation slides](https://endsunite-presentation.netlify.com)
