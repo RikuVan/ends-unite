@@ -48,7 +48,7 @@
   ],
   "dependencies": {
     "antd": "^3.13.6",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "helpful-decorators": "^1.7.2",
     "ramda": "^0.26.1",
     "react": "^16.8.3",
